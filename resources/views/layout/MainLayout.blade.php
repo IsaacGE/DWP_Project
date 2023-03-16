@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project DWP</title>
+    @vite(['resources/css/app.css'])
     <link rel="shortcut icon" href="{{ asset('img/main-icon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('libs/sweetAlert/swal.min.css') }}" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('libs/dropZone/dropzone.min.css') }}" type="text/css" />
+    @stack('styles')
+
 </head>
 
 <body>
@@ -29,40 +33,22 @@
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="signin"><i class="bi bi-box-arrow-in-right"></i>&nbsp;SignIn</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signup"><i class="bi bi-person-fill-add"></i>&nbsp;SignUp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/community"><i class="bi bi-people-fill"></i>&nbsp;Community</a>
-                        </li>
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="signin"><i class="bi bi-box-arrow-in-right"></i>&nbsp;SignIn</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signup"><i class="bi bi-person-fill-add"></i>&nbsp;SignUp</a>
+                            </li>
+                        @endguest
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="/community"><i class="bi bi-people-fill"></i>&nbsp;Community</a>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a class="text-reset me-3" href="#">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
-
-                    <div class="dropdown">
-                        <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#"
-                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bell"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="#">Some news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="dropdown">
                         <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
                             id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
@@ -71,27 +57,21 @@
                                 height="25" alt="Black and White Portrait of a Man" loading="lazy" />
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                            <li>
-                                @if (Auth::user())
-                            <li>
-                                <a class="dropdown-item" href="#">{{ auth()->user()->name }}</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">{{ auth()->user()->username }}</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">My profile</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Settings</a>
-                            </li>
-                            <form action="/logout" method="POST">
-                                @csrf
-                                <a class="dropdown-item" type="submit" onclick="this.closest('form').submit()"
-                                    href="#">Logout</a>
-                            </form>
-                            @endif
-                            </li>
+                            @auth
+                                <li>
+                                    <a class="dropdown-item" href="#">{{ auth()->user()->name }}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">{{ auth()->user()->username }}</a>
+                                </li>
+                                <li>
+                                    <form action="/logout" method="POST">
+                                        @csrf
+                                        <a class="dropdown-item" type="submit" onclick="this.closest('form').submit()"
+                                            href="#">Logout</a>
+                                    </form>
+                                </li>
+                            @endauth
                         </ul>
                     </div>
                 </div>
@@ -202,9 +182,12 @@
         </div>
     </footer>
 
+    @vite(['resources/js/app.js'])
     <script src="{{ asset('libs/jQuery/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('libs/sweetAlert/swal.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('libs/chartJs/chartjs.min.js') }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ asset('js/mdb.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
 </body>
 
 </html>

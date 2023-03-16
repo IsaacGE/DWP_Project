@@ -26,6 +26,7 @@ class SignInController extends Controller
     }
 
 
+    
     public function Logout(Request $request) {
         Auth::logout();
         
