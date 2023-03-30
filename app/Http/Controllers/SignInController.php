@@ -22,7 +22,7 @@ class SignInController extends Controller
         if (!auth()->attempt($request->only('email', 'password'))) {
             return back()->with('message', 'Invalid username or password.');
         }
-        return redirect()->route('post.index');
+        return redirect()->route('Post.Dashboard');
     }
 
 
