@@ -40,3 +40,5 @@ Route::get('/dashboard', [PostController::class, 'dashboard'])->name('Post.Dashb
 Route::post('/logout', [SignInController::class, 'Logout']);
 
 Route::post('/uploadImage', [ImageController::class, 'store'])->name('uploadImage');
+
+Route::get('/{user:username}/post/{post}',[PostController::class, 'show'])->name('post.show');

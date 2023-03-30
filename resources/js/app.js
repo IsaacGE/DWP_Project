@@ -12,7 +12,7 @@ const dropzone = new Dropzone('#dropzone', {
     uploadMultiple: false,
 
     init: () => {
-        if (document.querySelector('[name="imagePath"]').ariaValueMax.trim() != '/') {
+        if (document.querySelector('[name="imagePath"]').value.trim() != '/') {
             const imageUpload = {}
             imageUpload.size = 1234;
             imageUpload.name = document.querySelector('[name="imagePath"]').value
@@ -28,7 +28,7 @@ const dropzone = new Dropzone('#dropzone', {
 
 dropzone.on('success', (file, response) => {
     console.log('UPLOAD SUCCESS')
-    document.querySelector('[name="imagePath"]').value = response.imageUpload
+    document.querySelector('[name="imagePath"]').value = response.image
 })
 
 dropzone.on('removedfile', () => {
