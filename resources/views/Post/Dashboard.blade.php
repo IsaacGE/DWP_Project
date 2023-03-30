@@ -4,13 +4,20 @@
 @endsection
 
 @section('content')
-@if ($posts->count())
-@endif
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Posts</h5>
-            <p class="card-text"></p>
-            <button type="button" class="btn btn-primary">Button</button>
-        </div>
-    </div>
+    <h3>Posts list</h3>
+    @if ($posts->count())
+        @foreach ($posts as $post)
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header">
+                        <img src="{{ asset('uploads') . '/' . $post->imagePath }}" class="card-img-top" alt="">
+                    </div>
+                    <h5 class="card-title">{{ $post->title }}</h5>
+                    <p class="card-text">{{ $post->text }}</p>
+                    <button type="button" class="btn btn-primary">Button</button>
+                </div>
+            </div>
+        @endforeach
+    @else
+    @endif
 @endsection

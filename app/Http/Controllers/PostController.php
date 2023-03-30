@@ -21,7 +21,10 @@ class PostController extends Controller
 
     public function dashboard()
     {
-        return view('Post.Dashboard');
+        $posts = Post::paginate(6);
+        return view('post.Dashboard', [
+            'posts' => $posts
+        ]);
     }
 
     public function Create(Request $request)
